@@ -250,7 +250,6 @@ public class Calc extends Frame {
 						if(num1.indexOf(".") == -1) {						// num1에 소숫점이 존재하지 않을 때
 							bLabel.setText(bLabel.getText() + in);
 							num1.append(".");
-							
 						}
 						else in = prevInput;								// prevInput을 . 이 입력되기 전으로
 					}
@@ -269,7 +268,7 @@ public class Calc extends Frame {
 					// 연산자가 처음으로 입력되었을 때
 					if(opFlag == false) {
 						opFlag = true;
-						if(prevInput == ".") {
+						if(prevInput == ".") {								// 5.* 입력시 .을 지워준다
 							num1.deleteCharAt(num1.length() - 1);
 							StringBuffer str = new StringBuffer(bLabel.getText());
 							str.deleteCharAt(str.length() - 1);
