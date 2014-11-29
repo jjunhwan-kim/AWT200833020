@@ -162,7 +162,7 @@ public class Calc extends Frame {
 				case "1/x" : break;
 				case "CE" : break;
 				
-				case "←" :
+				case "<" :
 					// 연산자가 입력되기 전
 					if(opFlag == false) {
 						if(resultFlag == false) {
@@ -250,7 +250,9 @@ public class Calc extends Frame {
 						if(num1.indexOf(".") == -1) {						// num1에 소숫점이 존재하지 않을 때
 							bLabel.setText(bLabel.getText() + in);
 							num1.append(".");
+							
 						}
+						else in = prevInput;								// prevInput을 . 이 입력되기 전으로
 					}
 					else {													// 연산자를 쓴 이후
 						if(num2.indexOf(".") == -1) {
@@ -258,6 +260,7 @@ public class Calc extends Frame {
 							else bLabel.setText(bLabel.getText() + ".");	// 연산자 이후 숫자를 쓰고 .을 쓸 때
 							num2.append(".");
 						}
+						else in = prevInput;
 					}
 					break;
 				
