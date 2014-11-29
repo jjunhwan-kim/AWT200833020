@@ -29,6 +29,8 @@ public class Calc extends Frame {
 	Label tLabel = new Label("", Label.RIGHT);
 	Label bLabel = new Label("0", Label.RIGHT);
 	
+	MyActionListener myActionListener = new MyActionListener();
+	
 	public Calc() {
 
 		super("계산기");					// Frame 부모 클래스 생성자 호출
@@ -37,22 +39,20 @@ public class Calc extends Frame {
 		Panel pTop = new Panel(null);		// 레이아웃 null
 		Panel pBottom = new Panel(null);	// 레이아웃 null
 		
-		// 상위 패널
+		// 상위 패널 설정
 		pTop.setBounds(0, 0, 270, 135);
 		pTop.setBackground(Color.GRAY);
 		
-		// 하위 패널
+		// 하위 패널 설정
 		pBottom.setBounds(0, 135, 270, 255);
 		pBottom.setBackground(Color.GRAY);
 		pBottom.setSize(270, 255);
 
-		// 레이블		
+		// 레이블 설정
 		tLabel.setBounds(20, 70, 232, 30);
 		tLabel.setBackground(Color.LIGHT_GRAY);
 		bLabel.setBounds(20, 100, 232, 30);
 		bLabel.setBackground(Color.LIGHT_GRAY);
-		
-	
 		
 		// 레이블 상위 패널에 삽입
 		pTop.add(tLabel);
@@ -125,12 +125,13 @@ public class Calc extends Frame {
 		
 		setLayout(null);
 		setSize(270, 390);
-		setVisible(true);
 		setResizable(false);
 		
 		add(pTop);
 		add(pBottom);
 		
+		setVisible(true);
+
 		// WindowAdapter 익명 클래스 리스너
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -146,10 +147,9 @@ public class Calc extends Frame {
 			// TODO Auto-generated method stub
 			if(e.getSource() instanceof Button) {
 				Button btn = (Button) e.getSource();
-				//System.out.println(btn.getLabel());
 				String in = btn.getLabel();
 				System.out.print(in);
-				//System.out.println("num1: " + num1 + " num2: " + num2);
+
 				switch(in) {
 				case "MC" : break;
 				case "MR" : break;
@@ -179,7 +179,8 @@ public class Calc extends Frame {
 					else {
 						// 바로 이전에 연산자가 입력되지 않았을 때
 						if(prevInput != "*" && prevInput != "/" && prevInput != "+" && prevInput != "-") {
-							if(resultFlag == false && num2Flag == true) {	// =을 누른 직후는 지워지면 안되며, 연산자 입력 직후도 지워지면 안된다.
+							// =을 누른 직후는 지워지면 안되며, 연산자 입력 직후도 지워지면 안된다.
+							if(resultFlag == false && num2Flag == true) {	
 								if(num2.length() > 1) num2.deleteCharAt(num2.length() - 1);
 								else { 
 									num2.deleteCharAt(num2.length() - 1);
@@ -241,10 +242,8 @@ public class Calc extends Frame {
 					if(resultFlag == true) {
 						opFlag = resultFlag = num2Flag = false;
 						bLabel.setText("0");
-						num1.delete(0, num1.length());
-						num1.append(0);
-						num2.delete(0, num2.length());
-						num2.append(0);
+						num1.delete(0, num1.length()); num1.append(0);
+						num2.delete(0, num2.length()); num2.append(0);
 					}
 					
 					if(opFlag == false) {	
@@ -367,12 +366,10 @@ public class Calc extends Frame {
 					}
 					break;
 				}
-				prevInput = in;
+				prevInput = in;										// 이전 핸들러에서 입력 값
 			}
 		}
 	}
-	
-	MyActionListener myActionListener = new MyActionListener();
 	
 	public static void main(String[] args) {
 		Calc c = new Calc();
